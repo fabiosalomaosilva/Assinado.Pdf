@@ -26,13 +26,10 @@ namespace Assinado.Pdf.Test
                 file = openFileDialog1.FileName;
             }
 
-            var pdf = new Pdf.Utils.PdfCompressing();
+            var pdf = new Pdf.Utils.PdfMerge();
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                pdf.Compress(
-                    file, 
-                    saveFileDialog1.FileName
-                    );
+                //pdf.MergePdfForms(file,saveFileDialog1.FileName);
 
             }
         }
