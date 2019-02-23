@@ -33,8 +33,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,6 +61,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -63,6 +73,20 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="assets\JSignPdf-1.6.4\conf\conf.properties" />
+    <None Include="assets\JSignPdf-1.6.4\conf\pkcs11.cfg" />
+    <None Include="assets\JSignPdf-1.6.4\docs\JSignPdf.pdf" />
+    <None Include="assets\JSignPdf-1.6.4\docs\JSignPdf_signed.pdf" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\apache-commons.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\bouncycastle.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\DejaVu-font.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\icu4j.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\InstallCert.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\pdfbox.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\PdfRenderer.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\pokrytie_font.license" />
+    <None Include="assets\JSignPdf-1.6.4\docs\ThirdPartyLicenses\splashscreen.info" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -75,6 +99,40 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\JSignPdf-1.6.4\docs\ChangeLog.txt" />
+    <Content Include="assets\JSignPdf-1.6.4\docs\lgpl-2.1.txt" />
+    <Content Include="assets\JSignPdf-1.6.4\docs\MPL-1.1.txt" />
+    <Content Include="assets\JSignPdf-1.6.4\docs\ReleaseNotes.txt" />
+    <Content Include="assets\JSignPdf-1.6.4\InstallCert.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\JSignPdf.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\bcmail-jdk15on-1.49.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\bcpkix-jdk15on-1.49.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\bcprov-jdk15on-1.49.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\commons-cli-1.2.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\commons-io-2.1.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\commons-lang3-3.1.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\fontbox-1.8.2.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\icu4j-4_2_1.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\icu4j-charsets-4_2_1.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\jcl-over-slf4j-1.6.4.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\jempbox-1.8.2.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\jpedal_lgpl.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\jsignpdf-itxt-1.6.4.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\log4j-1.2.16.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\pdfbox-1.8.2.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\PDFRenderer.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\slf4j-api-1.6.4.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\lib\slf4j-log4j12-1.6.4.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\SignatureCounter.jar" />
+    <Content Include="assets\JSignPdf-1.6.4\Verifier.jar" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Assinado.Sign\Assinado.Sign.csproj">
+      <Project>{5e8ebd06-8740-4625-9619-a2a3696befa8}</Project>
+      <Name>Assinado.Sign</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
