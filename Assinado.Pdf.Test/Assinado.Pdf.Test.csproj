@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Assinado.Pdf.Test</RootNamespace>
     <AssemblyName>Assinado.Pdf.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
@@ -84,6 +84,10 @@
     <ProjectReference Include="..\Assinado.Pdf.Utils\Assinado.Pdf.Utils.csproj">
       <Project>{9b7d9cc3-f003-4422-8078-1cb15ac4a6af}</Project>
       <Name>Assinado.Pdf.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Assinado.Sign\Assinado.Pdf.Sign.csproj">
+      <Project>{5E8EBD06-8740-4625-9619-A2A3696BEFA8}</Project>
+      <Name>Assinado.Pdf.Sign</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

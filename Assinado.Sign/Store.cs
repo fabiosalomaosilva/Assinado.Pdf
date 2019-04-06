@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 using Assinado.Pdf.Sign.Model;
 
 namespace Assinado.Pdf.Sign
@@ -8,49 +10,52 @@ namespace Assinado.Pdf.Sign
     {
         public List<DigitalCertificate> GetListCertificates(CertSignStoreName storeName, CertSignStoreLocation storeLocation)
         {
-            var store = new X509Store(RetornaStoreName(storeName), RetornaStoreLocation(storeLocation));
-            store.Open(OpenFlags.OpenExistingOnly);
-            var collection = store.Certificates;
-            var listaCertificados = collection.Find(X509FindType.FindByTimeValid, X509KeyUsageFlags.DigitalSignature, true);
-
-            var list = new List<DigitalCertificate>();
-            for (var index = 0; index < listaCertificados.Count; index++)
-            {
-                var i = listaCertificados[index];
-                list.Add(new DigitalCertificate
-                {
-                    FriendlyName = i.FriendlyName,
-                    Name = i.IssuerName.Name,
-                    Certificate = i,
-                    PublicKey = i.GetPublicKey()
-                });
-            }
-            return list;
+            return GetCertificates(storeName, storeLocation);
         }
+
         public DigitalCertificate[] GetArrayCertificates(CertSignStoreName storeName, CertSignStoreLocation storeLocation)
         {
-            var store = new X509Store(RetornaStoreName(storeName), RetornaStoreLocation(storeLocation));
-            store.Open(OpenFlags.OpenExistingOnly);
-            var collection = store.Certificates;
-            var listaCertificados = collection.Find(X509FindType.FindByKeyUsage, X509KeyUsageFlags.DigitalSignature, true);
-
-            var certs = new DigitalCertificate[listaCertificados.Count - 1];
-
-            var index = 0;
-            for (var i = 0; i < listaCertificados.Count; i++)
-            {
-                var s = listaCertificados[i];
-                certs[index] = new DigitalCertificate
-                {
-                    FriendlyName = s.FriendlyName,
-                    Name = s.IssuerName.Name,
-                    Certificate = s,
-                    PublicKey = s.GetPublicKey()
-                };
-                index++;
-            }
-            return certs;
+            var lista = GetCertificates(storeName, storeLocation);
+            return lista.ToArray();
         }
+
+        private List<DigitalCertificate> GetCertificates(CertSignStoreName storeName, CertSignStoreLocation storeLocation)
+        {
+            try
+            {
+                var store = new X509Store(RetornaStoreName(storeName), RetornaStoreLocation(storeLocation));
+                store.Open(OpenFlags.MaxAllowed);
+                if (store != null)
+                {
+                    var collection = store.Certificates;
+                    var listaCertificados = collection.Find(X509FindType.FindByKeyUsage, X509KeyUsageFlags.DigitalSignature, true);
+
+                    var list = new List<DigitalCertificate>();
+                    foreach (var i in listaCertificados)
+                    {
+                        if (!string.IsNullOrEmpty(i.FriendlyName))
+                        {
+                            list.Add(new DigitalCertificate
+                            {
+                                FriendlyName = i.FriendlyName,
+                                Name = i.IssuerName.Name,
+                                Certificate = i,
+                                PublicKey = i.GetPublicKey()
+                            });
+                        }
+                    }
+
+                    return list;
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+        }
+
 
         public DigitalCertificate GetCertificate(string name)
         {
